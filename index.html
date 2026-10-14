@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐羽辞笼 — 游戏设计企划</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d0d0d'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%23f2f0ea' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0d0d0d;
+    --ink:#f2f0ea;
+    --muted:#9a9a92;
+    --line:#2a2a2a;
+    --serif:'Noto Serif SC','Songti SC','SimSun',serif;
+    --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:2;font-size:15px}
+  ::selection{background:#f2f0ea;color:#0d0d0d}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:baseline;justify-content:space-between;padding:20px 0}
+  .logo{font-family:var(--serif);font-weight:600;font-size:17px;letter-spacing:.2em}
+  .nav-links{display:flex;gap:26px;font-size:13px;letter-spacing:.12em;color:var(--muted)}
+  .nav-links a:hover{color:var(--ink)}
+
+  .hero{padding:96px 0 72px;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:.34em;color:var(--muted);margin-bottom:26px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,8vw,72px);letter-spacing:.08em;line-height:1.1}
+  .tagline{font-family:var(--serif);font-weight:300;font-size:clamp(17px,2.4vw,22px);color:var(--ink);margin-top:20px}
+  .hero-desc{color:var(--muted);max-width:56ch;margin-top:22px;font-size:14px}
+  .hero-cta{display:flex;gap:34px;margin-top:40px}
+  .hero-cta a,.hero-cta button{border:none;background:none;padding:0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:4px}
+  .hero-cta .muted{color:var(--muted);border-bottom-color:var(--muted)}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  .sec-label{font-size:12px;letter-spacing:.3em;color:var(--muted);margin-bottom:18px}
+  .sec-title{font-family:var(--serif);font-weight:600;font-size:clamp(26px,4vw,38px);letter-spacing:.05em;margin-bottom:30px}
+  .sec-sub{color:var(--muted);font-size:14px;max-width:60ch;margin-bottom:34px}
+
+  .text p{color:var(--ink);margin-bottom:20px;font-size:15px;max-width:62ch}
+  .text p .m{color:var(--muted)}
+
+  .list{border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .row .idx{font-family:var(--serif);color:var(--muted);font-size:13px;letter-spacing:.1em}
+  .row h3{font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.05em;margin-bottom:6px}
+  .row p{font-size:14px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:48px 0 72px}
+  .foot{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px}
+  .foot-brand{font-family:var(--serif);font-weight:600;letter-spacing:.16em;font-size:14px}
+  .foot-meta{color:var(--muted);font-size:12px;letter-spacing:.08em}
+
+  .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(24px);background:#f2f0ea;color:#0d0d0d;padding:12px 24px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:100}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:560px){
+    .hero{padding:64px 0 56px}
+    .nav-links{display:none}
+    section{padding:56px 0}
+    .row{grid-template-columns:1fr;gap:6px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">隐羽辞笼</div>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#world">世界</a>
+      <a href="#story">故事</a>
+      <a href="#gameplay">玩法</a>
+    </div>
+  </div>
+</header>
+
+<!-- 主区 -->
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">2.5D · 横版 · 剧情向</div>
+    <h1>隐羽辞笼</h1>
+    <p class="tagline">为自己原创的角色而作，讲一段原创的世界观与故事。</p>
+    <p class="hero-desc">她发现了一直生活的地方的黑暗秘密，决定离开那座生活了十年之久的"笼"。</p>
+    <div class="hero-cta">
+      <button data-toast="试玩入口正在整理，完成后会第一时间发布">进入游戏</button>
+      <a class="muted" href="#story">了解故事</a>
+    </div>
+  </div>
+</section>
+
+<!-- 关于游戏 -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">01 · 关于游戏</div>
+    <div class="sec-title">概念</div>
+    <div class="list">
+      <div class="row">
+        <div class="idx">概述</div>
+        <div><p>为自己原创的角色设计的游戏，用游戏讲述我原创的世界观和故事。</p></div>
+      </div>
+      <div class="row">
+        <div class="idx">类型</div>
+        <div><h3>角色扮演 · 解密</h3></div>
+      </div>
+      <div class="row">
+        <div class="idx">受众</div>
+        <div><p>8 岁以上。略有教育意义的剧情体验，无需太多游戏经验，适合喜欢听故事的人。</p></div>
+      </div>
+      <div class="row">
+        <div class="idx">特色</div>
+        <div><h3>2.5D 横版剧情向沉浸式体验</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 世界设定 -->
+<section id="world">
+  <div class="wrap">
+    <div class="sec-label">02 · 世界设定</div>
+    <div class="sec-title">一个被割裂的世界</div>
+    <div class="text">
+      <p>架空世界观。一个魔法与高科技同时存在的世界，半赛博朋克，穷与富被彻底割裂。</p>
+      <p class="m">—— 而主角生活的，是这裂缝中的一角。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 故事 -->
+<section id="story">
+  <div class="wrap">
+    <div class="sec-label">03 · 故事</div>
+    <div class="sec-title">离开那座十年的笼</div>
+    <div class="text">
+      <p>本作是作者整个世界观中的一段故事。主角发现了一直生活的地方的黑暗秘密，决定逃离这个生活了十年左右的地方。</p>
+      <p class="m">藏起羽翼，在秘密被彻底揭开之前，走出那道从未真正属于自己的门。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 玩法与设计 -->
+<section id="gameplay">
+  <div class="wrap">
+    <div class="sec-label">04 · 玩法与设计</div>
+    <div class="sec-title">玩法</div>
+    <div class="list">
+      <div class="row">
+        <div class="idx">机制</div>
+        <div><p>单线程角色扮演、少许解密，2.5D 箱庭世界。</p></div>
+      </div>
+      <div class="row">
+        <div class="idx">流程</div>
+        <div><p>单线程故事体验为主，沉浸式带入，解密为辅。</p></div>
+      </div>
+      <div class="row">
+        <div class="idx">控制</div>
+        <div><p>键盘、鼠标。暂无移植手机端的想法，有适配手柄的考虑。</p></div>
+      </div>
+      <div class="row">
+        <div class="idx">美术</div>
+        <div><p>中世纪半做旧的视觉风格。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-brand">隐羽辞笼</div>
+    <div class="foot-meta">游戏设计企划 &nbsp;|&nbsp; 故事 · 角色 · 世界观：小禾</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  var toastEl = document.getElementById('toast');
+  var btns = document.querySelectorAll('[data-toast]');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      toastEl.textContent = btn.getAttribute('data-toast');
+      toastEl.classList.add('show');
+      clearTimeout(btn._t);
+      btn._t = setTimeout(function(){ toastEl.classList.remove('show'); }, 2400);
+    });
+  });
+</script>
+</body>
+</html>
